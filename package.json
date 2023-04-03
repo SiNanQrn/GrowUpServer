@@ -1,0 +1,23 @@
+{
+  "name": "GrowUpServer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiNanQrn/GrowUpServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiNanQrn/GrowUpServer/issues"
+  },
+  "homepage": "https://github.com/SiNanQrn/GrowUpServer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
