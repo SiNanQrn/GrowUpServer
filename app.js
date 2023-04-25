@@ -7,6 +7,9 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 
+// 导入定义规则的模块
+const joi = require("joi");
+
 // 配置解析表单数据的中间件
 app.use(express.urlencoded({ extended: false }));
 
@@ -21,6 +24,14 @@ app.use((req, res, next) => {
 // 导入并注册todo路由模块
 const todoRouter = require("./router/todo");
 app.use("/api", todoRouter);
+
+// 定义错误级别的中间件
+app.use((err, req, res, next) => {
+  // 验证失败导致的错误
+  if (err instanceof joi.ValidationError) return res.cc(err);
+  // 未知错误
+  res.cc(err);
+});
 
 // 调用app.listen 方法，制定端口并启动web服务器
 app.listen(3007, () => {
