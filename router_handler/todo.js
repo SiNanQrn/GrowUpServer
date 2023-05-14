@@ -77,8 +77,8 @@ exports.insertToDoList = (req, res) => {
   const listInfo = req.body;
   console.log("listInfo", listInfo);
 
-  if (!listInfo.listName || !listInfo.times) {
-    return res.cc("项目名称或者周期名称不得为空");
+  if (!listInfo.listName || !listInfo.totalNum) {
+    return res.cc("项目名称或者项目总量不得为空");
   }
 
   // 定义 SQL 语句查询 listName 是否被占用
@@ -107,6 +107,7 @@ exports.insertToDoList = (req, res) => {
         timesName: listInfo.timesName,
         type: listInfo.type,
         typeName: listInfo.typeName,
+        totalNum: listInfo.totalNum,
         classificationCode: listInfo.classificationCode,
         classificationName: listInfo.classificationName,
       },
@@ -138,19 +139,24 @@ exports.updateToDoList = (req, res) => {
   }
 
   // 定义 SQL 语句查询 listName 是否被占用
-  const sqlStr = "update list set isFinish=? where id=?";
-  db.query(sqlStr, [listInfo.isFinish, listInfo.id], (err, results) => {
-    // 执行 SQL 语句失败
-    if (err) return res.cc(err);
-    console.log("results", results);
-    if (results.affectedRows !== 1) return res.cc("更新失败");
+  const sqlStr =
+    "update list set isFinish=?,gmtModify=?,count=count + 1 where id=?";
+  db.query(
+    sqlStr,
+    [listInfo.isFinish, listInfo.gmtModify, listInfo.id],
+    (err, results) => {
+      // 执行 SQL 语句失败
+      if (err) return res.cc(err);
+      console.log("results", results);
+      if (results.affectedRows !== 1) return res.cc("更新失败");
 
-    // 更新成功
-    res.send({
-      status: 200,
-      msg: "更新成功",
-    });
-  });
+      // 更新成功
+      res.send({
+        status: 200,
+        msg: "更新成功",
+      });
+    }
+  );
 };
 
 // 删除TODO list的处理函数
