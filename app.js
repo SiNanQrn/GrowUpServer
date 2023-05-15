@@ -10,10 +10,10 @@ app.use(cors());
 // 导入定义规则的模块
 const joi = require("joi");
 
-// 配置解析表单数据的中间件
+// u
 app.use(express.urlencoded({ extended: false }));
 
-// 封装 res.cc 函数
+// 封装r
 app.use((req, res, next) => {
   res.cc = function (err, status = 501) {
     res.send({ status, message: err instanceof Error ? err.message : err });
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   res.cc(err);
 });
 
-// 调用app.listen 方法，制定端口并启动web服务器
+// 调用app.listen 方法，制定z
 app.listen(3007, () => {
   console.log("api server running at http://127.0.0.1:3007");
 });
